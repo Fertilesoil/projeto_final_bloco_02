@@ -3,8 +3,6 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using projeto_final_bloco_02.Models;
 using projeto_final_bloco_02.Service;
-using projeto_final_bloco_02.Service.Implements;
-using projeto_final_bloco_02.Validator;
 
 namespace projeto_final_bloco_02.Controllers
 {
@@ -33,7 +31,7 @@ namespace projeto_final_bloco_02.Controllers
             var Resposta = await  _produtoService.BuscarPorId(id);
 
             if (Resposta is null)
-                return NotFound("");
+                return NotFound();
 
             return Ok(Resposta);
         }
@@ -55,7 +53,7 @@ namespace projeto_final_bloco_02.Controllers
                 var Resposta = await _produtoService.Criar(produto);
 
                 if (Resposta is null)
-                return BadRequest("Produto não encontrado!");
+                return BadRequest("Categoria não encontrada!");
 
             return CreatedAtAction(nameof(BuscarPorId), new { id = produto.Id }, produto);
         }
@@ -74,7 +72,7 @@ namespace projeto_final_bloco_02.Controllers
             var Resposta = await _produtoService.Atualizar(produto);
 
             if (Resposta is null)
-                return NotFound("Produto Não Encontrado !!");
+                return NotFound("Produto ou Categoria Não Encontrados !!");
 
             return Ok(Resposta);
         }
